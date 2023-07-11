@@ -1,9 +1,10 @@
 package com.todoClient;
 
-import com.google.gson.Gson;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
+
+import com.google.gson.Gson;
 
 // A class to represent an example object with two properties
 class MyObject {
