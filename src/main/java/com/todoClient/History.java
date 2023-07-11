@@ -3,15 +3,15 @@ package com.todoClient;
 import java.util.Date;
 
 public class History {
-    Date make_time;
-    Date last_edit_time;
+    Date created_at;
+    Date updated_at;
 
     History() {
-        make_time = new Date();
-        last_edit_time = new Date();
+        created_at = new Date();
+        updated_at = new Date();
     }
 
     void edit() {
-        last_edit_time = new Date();
+        updated_at = new Date();
     }
 }

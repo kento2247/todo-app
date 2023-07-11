@@ -10,10 +10,4 @@ public class Color {
         this.g = (byte) g;
         this.b = (byte) b;
     }
-
-    // public static Color parse(String json_str) {
-    // Gson gson = new Gson();
-    // Color obj = gson.fromJson(json_str, Color.class);
-    // return obj;
-    // }
 }
