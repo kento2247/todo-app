@@ -10,4 +10,8 @@ public class History {
         make_time = new Date();
         last_edit_time = new Date();
     }
+
+    void edit() {
+        last_edit_time = new Date();
+    }
 }

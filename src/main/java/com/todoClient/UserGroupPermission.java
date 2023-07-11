@@ -1,3 +1,5 @@
+package com.todoClient;
+
 public class UserGroupPermission extends History {
     String id;
     String user_id;
