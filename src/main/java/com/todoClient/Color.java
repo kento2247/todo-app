@@ -1,3 +1,4 @@
+package com.todoClient;
 
 public class Color {
     byte r;

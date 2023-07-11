@@ -1,3 +1,5 @@
+package com.todoClient;
+
 import java.util.Date;
 
 public class History {
