@@ -1,27 +1,14 @@
 package com.todoClient;
 
-import com.google.gson.Gson;
-
-// A class to represent an example object with two properties
-class MyObject {
-  String name;
-  int age;
-
-  MyObject(String name, int age) {
-    this.name = name;
-    this.age = age;
-  }
-}
-
 public class Main {
   public static void main(String[] args) {
-    Color color = new Color(0, 0, 0);
-    Gson gson = new Gson();
-    String a = gson.toJson(color);
-    Color c = Json.parse(Color.class, a);
-    a = Json.stringify(c);
+    // Color color = new Color(0, 0, 0);
+    // Gson gson = new Gson();
+    // String a = gson.toJson(color);
+    // Color c = Json.parse(Color.class, a);
+    // a = Json.stringify(c);
+    // System.out.println(a);
     // gson = gson.toJson("{\"r\":1,\"g\":20,\"b\":30}");
-    System.out.println(a);
     // Create a new Gson instance
     // Gson gson = new Gson();
 
@@ -43,5 +30,20 @@ public class Main {
     // frame.setVisible(true);
     // });
     // }
+
+    // OpenAPI_client c = new OpenAPI_client();
+    // System.out.println(c.get("/hello"));
+
+    // JFrame frame = new JFrame("login");
+    // Gui app = new Gui();
+    // Component[] components = app.createComponents();
+    // Component contents0 = components[0];
+    // Component contents1 = components[1];
+    // frame.getContentPane().add(contents0, BorderLayout.NORTH);
+    // frame.getContentPane().add(contents1, BorderLayout.SOUTH);
+
+    // frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    // frame.pack();
+    // frame.setVisible(true);
   }
 }

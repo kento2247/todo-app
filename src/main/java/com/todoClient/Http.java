@@ -18,7 +18,7 @@ public class Http {
         HttpClient client = HttpClient.newBuilder()
                 .followRedirects(Redirect.NORMAL)
                 .build();
-        HttpRequest request = HttpRequest.newBuilder(URI.create(this.url + "?" + param_str))
+        HttpRequest request = HttpRequest.newBuilder(URI.create(this.url + param_str))
                 .method(method_str, HttpRequest.BodyPublishers.ofString(body_str))
                 .build();
         HttpResponse<String> response = client.send(
@@ -27,19 +27,35 @@ public class Http {
         return response.body();
     }
 
-    public String get(String param_str) throws Exception {
-        return this.send("GET", param_str, "");
+    public String get(String param_str) {
+        try {
+            return this.send("GET", param_str, "");
+        } catch (Exception e) {
+            return e.toString();
+        }
     }
 
     public String post(String param_str, String body_str) throws Exception {
-        return this.send("POST", param_str, body_str);
+        try {
+            return this.send("POST", param_str, body_str);
+        } catch (Exception e) {
+            return e.toString();
+        }
     }
 
     public String put(String param_str, String body_str) throws Exception {
-        return this.send("PUT", param_str, body_str);
+        try {
+            return this.send("PUT", param_str, body_str);
+        } catch (Exception e) {
+            return e.toString();
+        }
     }
 
     public String delete(String param_str, String body_str) throws Exception {
-        return this.send("DELETE", param_str, body_str);
+        try {
+            return this.send("DELETE", param_str, body_str);
+        } catch (Exception e) {
+            return e.toString();
+        }
     }
 }

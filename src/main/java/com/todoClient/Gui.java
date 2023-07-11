@@ -1,8 +1,14 @@
 package com.todoClient;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.Component;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 public class Gui {
     private JLabel label;
@@ -153,19 +159,5 @@ public class Gui {
 
         Component[] components = { pane0, pane };
         return components;
-    }
-
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("login");
-        Gui app = new Gui();
-        Component[] components = app.createComponents();
-        Component contents0 = components[0];
-        Component contents1 = components[1];
-        frame.getContentPane().add(contents0, BorderLayout.NORTH);
-        frame.getContentPane().add(contents1, BorderLayout.SOUTH);
-
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setVisible(true);
     }
 }
