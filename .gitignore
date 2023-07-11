@@ -3,3 +3,15 @@
 
 # Ignore Gradle build output directory
 build
+
+
+.DS_Store
+
+.idea/
+.vscode/
+
+# Ignore all .class files
+*.class
+
+# Igonre bin directory
+bin/
