@@ -32,6 +32,7 @@ public class Main {
 
     Window w = new Window();
     w.init();
-    w.start_page();
+    // w.start_page();
+    w.home_page();
   }
 }

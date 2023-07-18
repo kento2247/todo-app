@@ -24,4 +24,12 @@ public class Window {
         frame.getContentPane().add(content, BorderLayout.CENTER);
         frame.getContentPane().revalidate();
     }
+
+    public void home_page() {
+        frame.getContentPane().removeAll();
+        Home home = new Home(frame);
+        Component content = home.createComponents();
+        frame.getContentPane().add(content, BorderLayout.CENTER);
+        frame.getContentPane().revalidate();
+    }
 }
