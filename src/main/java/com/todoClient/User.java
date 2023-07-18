@@ -1,6 +1,7 @@
 package com.todoClient;
 
 public class User extends History {
+    long id;
     String email;
     String nickname;
     String password;
@@ -24,8 +25,9 @@ public class User extends History {
     public int signin() {
         System.out.println("signup");
         System.out.println("email: " + this.email);
-        System.out.println("nickname: " + this.nickname);
         System.out.println("password: " + this.password);
+        String a = Json.stringify(this);
+        System.out.println(a);
         return 0;
     }
 }

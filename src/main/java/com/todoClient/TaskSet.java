@@ -1,7 +1,7 @@
 package com.todoClient;
 
 public class TaskSet extends History {
-    String id;
+    long id;
     String user_group_id;
     String name;
     Color color;
