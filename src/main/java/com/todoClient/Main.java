@@ -36,6 +36,6 @@ public class Main {
 
     Window w = new Window();
     w.init();
-    w.login();
+    w.start_page();
   }
 }

@@ -1,5 +1,6 @@
 package com.todoClient;
 
+import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -19,6 +20,22 @@ public class Login extends Window {
         this.frame = f;
     }
 
+    public void moveSignup() {
+        frame.getContentPane().removeAll();
+        Signup signup = new Signup(frame);
+        Component content = signup.createComponents();
+        frame.getContentPane().add(content, BorderLayout.CENTER);
+        frame.getContentPane().revalidate();
+    }
+
+    public void moveSignin() {
+        frame.getContentPane().removeAll();
+        Signin signin = new Signin(frame);
+        Component content = signin.createComponents();
+        frame.getContentPane().add(content, BorderLayout.CENTER);
+        frame.getContentPane().revalidate();
+    }
+
     class ButtonAction implements ActionListener {
         private String label_txt = "";
 
@@ -29,16 +46,17 @@ public class Login extends Window {
         public void actionPerformed(ActionEvent e) {
             if (this.label_txt == "signin") {
                 System.out.println("signin");
-                signin(frame);
-
+                moveSignin();
             } else if (this.label_txt == "signup") {
                 System.out.println("signup");
-                signup(frame);
+                moveSignup();
             }
         }
     }
 
-    public Component[] createComponents() {
+    public Component createComponents() {
+        JFrame new_Frame = new JFrame();
+
         JPanel pane0 = new JPanel();
         JLabel label = new JLabel("USER LOGIN");
         label.setHorizontalAlignment(JLabel.CENTER);
@@ -59,7 +77,10 @@ public class Login extends Window {
         pane1.add(signin);
         pane1.add(signup);
 
-        Component[] components = { pane0, pane1 };
+        new_Frame.getContentPane().add(pane0, BorderLayout.CENTER);
+        new_Frame.getContentPane().add(pane1, BorderLayout.SOUTH);
+
+        Component components = new_Frame.getContentPane();
         return components;
     }
 }
