@@ -34,16 +34,8 @@ public class Main {
     // OpenAPI_client c = new OpenAPI_client();
     // System.out.println(c.get("/hello"));
 
-    // JFrame frame = new JFrame("login");
-    // Gui app = new Gui();
-    // Component[] components = app.createComponents();
-    // Component contents0 = components[0];
-    // Component contents1 = components[1];
-    // frame.getContentPane().add(contents0, BorderLayout.NORTH);
-    // frame.getContentPane().add(contents1, BorderLayout.SOUTH);
-
-    // frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    // frame.pack();
-    // frame.setVisible(true);
+    Window w = new Window();
+    w.init();
+    w.start_page();
   }
 }
