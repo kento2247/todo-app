@@ -19,10 +19,10 @@ import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
-public class Signin extends Window {
+public class Home extends Window {
     JFrame frame;
 
-    Signin(JFrame f) {
+    Home(JFrame f) {
         this.frame = f;
     }
 
@@ -34,72 +34,62 @@ public class Signin extends Window {
         frame.getContentPane().revalidate();
     }
 
-    public void moveHome() {
-        frame.getContentPane().removeAll();
-        Login login = new Login(frame);
-        Component content = login.createComponents();
-        frame.getContentPane().add(content, BorderLayout.CENTER);
-        frame.getContentPane().revalidate();
-    }
-
     class ButtonAction implements ActionListener {
-        JLabel error_message;
         private String label_txt = "";
         private JTextField emailField;
         private JPasswordField passwordField;
 
-        ButtonAction(JLabel error_message, JTextField emailField, JPasswordField passwordField, String txt) {
-            this.error_message = error_message;
+        ButtonAction(JTextField emailField, JPasswordField passwordField, String txt) {
             this.label_txt = txt;
             this.passwordField = passwordField;
             this.emailField = emailField;
         }
 
         public void actionPerformed(ActionEvent e) {
-            if (this.label_txt == "back") {
-                System.out.println("back to login");
+            if (this.label_txt == "logout") {
+                System.out.println("logout");
                 moveLogin();
             } else if (this.label_txt == "submit") {
                 System.out.println("submit");
-                String email = this.emailField.getText();
-                String password = String.valueOf(this.passwordField.getPassword());
-                int return_flag = 0;
-                if (email.equals("")) {
-                    emailField.setBackground(java.awt.Color.pink);
-                    return_flag = 1;
-                    System.out.println("email is empty");
-                } else {
-                    emailField.setBackground(java.awt.Color.white);
-                }
-                if (password.equals("")) {
-                    passwordField.setBackground(java.awt.Color.pink);
-                    return_flag = 1;
-                    System.out.println("password is empty");
-                } else {
-                    passwordField.setBackground(java.awt.Color.white);
-                }
-                if (return_flag == 1) {
-                    return;
-                }
-                User user = new User("", email, password);
-                int result = user.signin();
-                if (result == 0) {
-                    System.out.println("signin failed");
-                    error_message.setText("Signin failed");
-                } else if (result == 1) {
-                    moveHome();
-                } else {
-                    System.out.println("undefined user auth");
-                }
+                // String email = this.emailField.getText();
+                // String password = String.valueOf(this.passwordField.getPassword());
+                // int return_flag = 0;
+                // if (email.equals("")) {
+                // emailField.setBackground(java.awt.Color.pink);
+                // return_flag = 1;
+                // System.out.println("email is empty");
+                // } else {
+                // emailField.setBackground(java.awt.Color.white);
+                // }
+                // if (password.equals("")) {
+                // passwordField.setBackground(java.awt.Color.pink);
+                // return_flag = 1;
+                // System.out.println("password is empty");
+                // } else {
+                // passwordField.setBackground(java.awt.Color.white);
+                // }
+                // if (return_flag == 1) {
+                // return;
+                // }
+                // User user = new User("", email, password, "");
+                // moveLogin();
             } else {
-                System.out.println("undefined button");
+                System.out.println("undefined");
             }
         }
 
     }
 
     public Component createComponents() {
+        int main_height = frame.getHeight();
+        int main_width = frame.getWidth();
         JFrame new_frame = new JFrame();
+        JFrame left_frame = new JFrame();
+        left_frame.setSize(main_width / 3, main_height);
+        JFrame left_bottom_frame = new JFrame();
+        left_bottom_frame.setSize(main_width / 3, main_height / 10);
+        JFrame right_frame = new JFrame();
+        right_frame.setSize(main_width / 3 * 2, main_height);
 
         JPanel inputPanel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -130,13 +120,9 @@ public class Signin extends Window {
 
         JPanel pane_submit = new JPanel();
         pane_submit.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));
-        pane_submit.setLayout(new GridLayout(2, 1));
-        JLabel error_message = new JLabel("");
-        error_message.setHorizontalAlignment(JLabel.CENTER);
-        error_message.setForeground(java.awt.Color.red);
-        pane_submit.add(error_message);
+        pane_submit.setLayout(new GridLayout(1, 1));
         JButton submit = new JButton("SIGN IN");
-        ButtonAction submit_listener = new ButtonAction(error_message, emailField, passwordField, "submit");
+        ButtonAction submit_listener = new ButtonAction(emailField, passwordField, "submit");
         submit.addActionListener(submit_listener);
         pane_submit.add(submit);
 
@@ -149,7 +135,7 @@ public class Signin extends Window {
 
         JPanel pane1 = new JPanel();
         JButton back = new JButton("< BACK");
-        ButtonAction back_listener = new ButtonAction(error_message, emailField, passwordField, "back");
+        ButtonAction back_listener = new ButtonAction(emailField, passwordField, "back");
         back.addActionListener(back_listener);
         back.setHorizontalAlignment(JButton.CENTER);
         pane1.setBorder(BorderFactory.createEmptyBorder(10, 30, 10, 30));
@@ -157,7 +143,6 @@ public class Signin extends Window {
         pane1.add(back);
 
         JFrame top_frame = new JFrame("");
-        int main_height = frame.getHeight();
         top_frame.setSize(frame.getWidth(), main_height / 10);
         top_frame.getContentPane().add(pane0, BorderLayout.CENTER);
         top_frame.getContentPane().add(pane1, BorderLayout.WEST);

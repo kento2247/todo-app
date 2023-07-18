@@ -12,4 +12,9 @@ public class Json {
         Gson gson = new Gson();
         return gson.toJson(obj);
     }
+
+    public static String stringify(Object[] obj) {
+        Gson gson = new Gson();
+        return gson.toJson(obj);
+    }
 }

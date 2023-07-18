@@ -2,15 +2,11 @@ package com.todoClient;
 
 public class Main {
   public static void main(String[] args) {
-    // Color color = new Color(0, 0, 0);
-    // Gson gson = new Gson();
-    // String a = gson.toJson(color);
-    // Color c = Json.parse(Color.class, a);
-    // a = Json.stringify(c);
+    // User user = new User("nickname", "email", "password", "status");
+    // User[] user_json = new User[] { user, user };
+    // String a = Json.stringify(user_json);
     // System.out.println(a);
-    // gson = gson.toJson("{\"r\":1,\"g\":20,\"b\":30}");
-    // Create a new Gson instance
-    // Gson gson = new Gson();
+    // User[] b = Json.parse(User[].class, a);
 
     // // Convert a JSON string to an object
     // String json = "{\"name\":\"John\",\"age\":30}";
