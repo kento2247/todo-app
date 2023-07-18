@@ -3,7 +3,10 @@ package com.todoClient;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -100,7 +103,7 @@ public class Signup extends Window {
                 if (return_flag == 1) {
                     return;
                 }
-                User user = new User(username, email, password, "");
+                User user = new User(username, email, password);
                 user.signup();
                 moveLogin();
             } else {
@@ -113,7 +116,9 @@ public class Signup extends Window {
     public Component createComponents() {
         JFrame new_frame = new JFrame();
 
-        JPanel inputPanel = new JPanel(new GridLayout(4, 2, 10, 0));
+        JPanel inputPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(2, 2, 10, 0); // 入力ボックスの周囲の余白を設定
         JLabel usernameLabel = new JLabel("Username:");
         JTextField usernameField = new JTextField(20);
         JLabel emailLabel = new JLabel("Email Address:");
@@ -128,14 +133,26 @@ public class Signup extends Window {
         emailField.setFont(font);
         passwordField.setFont(font);
         confirmPasswordField.setFont(font);
-        inputPanel.add(usernameLabel);
-        inputPanel.add(usernameField);
-        inputPanel.add(emailLabel);
-        inputPanel.add(emailField);
-        inputPanel.add(passwordLabel);
-        inputPanel.add(passwordField);
-        inputPanel.add(confirmPasswordLabel);
-        inputPanel.add(confirmPasswordField);
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        inputPanel.add(usernameLabel, gbc);
+        gbc.gridx = 1;
+        inputPanel.add(usernameField, gbc);
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        inputPanel.add(emailLabel, gbc);
+        gbc.gridx = 1;
+        inputPanel.add(emailField, gbc);
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        inputPanel.add(passwordLabel, gbc);
+        gbc.gridx = 1;
+        inputPanel.add(passwordField, gbc);
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        inputPanel.add(confirmPasswordLabel, gbc);
+        gbc.gridx = 1;
+        inputPanel.add(confirmPasswordField, gbc);
         inputPanel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
         inputPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
         JFrame scroll_frame = new JFrame();
