@@ -32,7 +32,9 @@ public class Main {
 
     Window w = new Window();
     w.init();
-    // w.start_page();
-    w.home_page();
+    w.start_page();
+
+    // User user = new User("nickname", "email", "password");
+    // w.home_page(user);
   }
 }

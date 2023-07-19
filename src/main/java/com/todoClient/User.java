@@ -4,6 +4,7 @@ public class User extends History {
     String email;
     String nickname;
     String password;
+    private String access_token;
 
     User(String nickname, String email, String password) {
         this.nickname = nickname;
@@ -38,7 +39,12 @@ public class User extends History {
         } else {
             System.out.println("login success");
             System.out.println("Access token: " + response);
+            this.access_token = response;
             return 1;
         }
+    }
+
+    public String getAccessToken() {
+        return this.access_token;
     }
 }
