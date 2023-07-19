@@ -34,10 +34,10 @@ public class Signin extends Window {
         frame.getContentPane().revalidate();
     }
 
-    public void moveHome() {
+    public void moveHome(User user) {
         frame.getContentPane().removeAll();
-        Login login = new Login(frame);
-        Component content = login.createComponents();
+        Home home = new Home(frame, user);
+        Component content = home.createComponents();
         frame.getContentPane().add(content, BorderLayout.CENTER);
         frame.getContentPane().revalidate();
     }
@@ -87,7 +87,7 @@ public class Signin extends Window {
                     System.out.println("signin failed");
                     error_message.setText("Signin failed");
                 } else if (result == 1) {
-                    moveHome();
+                    moveHome(user);
                 } else {
                     System.out.println("undefined user auth");
                 }
