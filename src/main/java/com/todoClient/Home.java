@@ -173,14 +173,8 @@ public class Home extends Window {
         return_panel.add(create_taskDetail_component_labelRow("Body: ", task.body));
         return_panel.add(create_taskDetail_component_labelRow("Due: ", DateFormatter.format(task.due_date)));
         return_panel.add(create_taskDetail_component_labelRow("Priority: ", Integer.toString(task.priority)));
-        String users_name = "";
-        for (int i = 0; i < task.user.length; i++) {
-            users_name += task.user[i].nickname;
-            if (i != task.user.length - 1) {
-                users_name += ", ";
-            }
-        }
-        return_panel.add(create_taskDetail_component_labelRow("Users: ", users_name));
+        String user_name = task.user.nickname;
+        return_panel.add(create_taskDetail_component_labelRow("Users: ", user_name));
         return_panel.add(create_taskDetail_component_labelRow("Id: ", Long.toString(task.id)));
 
         JPanel taskDetail_body_panel = new JPanel();
@@ -315,8 +309,7 @@ public class Home extends Window {
 
         // 仮想タスクデータ
         int repeat = 20;
-        User[] users = new User[] { user };
-        Task t1 = new Task(0, users, "title", "body", 1, "20201010T1010");
+        Task t1 = new Task(0, user, "title", "body", 1, new java.util.Date());
         Task[] tasks = new Task[repeat];
         for (int i = 0; i < repeat; i++) {
             tasks[i] = t1;

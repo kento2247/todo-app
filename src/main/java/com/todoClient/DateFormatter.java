@@ -2,6 +2,8 @@ package com.todoClient;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class DateFormatter {
     public static String format(String originalDateStr) {
@@ -18,5 +20,10 @@ public class DateFormatter {
             e.printStackTrace();
             return "";
         }
+    }
+    public static String format(Date originalDate) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+        String targetDateStr = sdf.format(originalDate);
+        return targetDateStr;
     }
 }
