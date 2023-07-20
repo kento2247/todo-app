@@ -38,7 +38,7 @@ public class Signin extends Window {
     public void moveHome(User user) {
         frame.getContentPane().removeAll();
         Home home = new Home(frame, user);
-        Component content = home.createComponents();
+        Component content = home.create_main_component();
         frame.getContentPane().add(content, BorderLayout.CENTER);
         frame.getContentPane().revalidate();
     }

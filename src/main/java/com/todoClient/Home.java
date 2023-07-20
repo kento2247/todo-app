@@ -25,6 +25,7 @@ public class Home extends Window {
     JFrame frame;
     User user;
     int scrollBar_width = 20;
+    boolean editable = false;
 
     Home(JFrame f, User user) {
         this.frame = f;
@@ -35,6 +36,13 @@ public class Home extends Window {
         frame.getContentPane().removeAll();
         Login login = new Login(frame);
         Component content = login.createComponents();
+        frame.getContentPane().add(content, BorderLayout.CENTER);
+        frame.getContentPane().revalidate();
+    }
+
+    public void reload_home_page() {
+        frame.getContentPane().removeAll();
+        Component content = this.create_main_component();
         frame.getContentPane().add(content, BorderLayout.CENTER);
         frame.getContentPane().revalidate();
     }
@@ -54,6 +62,10 @@ public class Home extends Window {
                 System.out.println("addTask");
                 System.out.println("user.getAccessToken()=" + user.getAccessToken());
                 Task.get_tasks(user.getAccessToken());
+            } else if (this.label_txt == "edit") {
+                System.out.println("edit");
+                editable = true;
+                reload_home_page();
             } else {
                 System.out.println("undefined" + " label=" + this.label_txt);
             }
@@ -90,18 +102,25 @@ public class Home extends Window {
 
         JPanel taskDetail_title_panel = new JPanel(new BorderLayout());
         taskDetail_title_panel.setPreferredSize(new Dimension(taskDetail_panel_width / width_ratio * 9, 50));
-        JLabel taskDetail_title_label = new JLabel(title);
-        taskDetail_title_label.setHorizontalAlignment(JLabel.CENTER);
-        taskDetail_title_label.setFont(new java.awt.Font("Dialog", Font.BOLD, 30));
-        taskDetail_title_panel.add(taskDetail_title_label);
+        if (editable) {
+            JLabel taskDetail_title_label = new JLabel(title);
+            taskDetail_title_label.setHorizontalAlignment(JLabel.CENTER);
+            taskDetail_title_label.setFont(new java.awt.Font("Dialog", Font.BOLD, 30));
+            taskDetail_title_panel.add(taskDetail_title_label);
+        } else {
+            JLabel taskDetail_title_label = new JLabel(title);
+            taskDetail_title_label.setHorizontalAlignment(JLabel.CENTER);
+            taskDetail_title_label.setFont(new java.awt.Font("Dialog", Font.BOLD, 30));
+            taskDetail_title_panel.add(taskDetail_title_label);
+        }
 
         return_frame.add(action_panel, BorderLayout.WEST);
-        return_frame.add(taskDetail_title_label, BorderLayout.CENTER);
+        return_frame.add(taskDetail_title_panel, BorderLayout.CENTER);
 
         return return_frame.getContentPane();
     }
 
-    private Component create_taskDetail_component_labelRow(String title, String content, boolean editable) {
+    private Component create_taskDetail_component_labelRow(String title, String content) {
         // int taskDetail_panel_width = frame.getWidth() / 3 * 2 - scrollBar_width;
         // int taskDetail_panel_height = frame.getHeight();
         JPanel return_panel = new JPanel();
@@ -110,12 +129,12 @@ public class Home extends Window {
         taskDetail_title_label.setHorizontalAlignment(JLabel.CENTER);
         return_panel.add(taskDetail_title_label);
         if (editable) {
-            JLabel taskDetail_content_label = new JLabel(content);
-            taskDetail_content_label.setHorizontalAlignment(JLabel.CENTER);
-            return_panel.add(taskDetail_content_label);
-        } else {
             JTextField taskDetail_content_label = new JTextField(content);
             taskDetail_content_label.setHorizontalAlignment(JTextField.CENTER);
+            return_panel.add(taskDetail_content_label);
+        } else {
+            JLabel taskDetail_content_label = new JLabel(content);
+            taskDetail_content_label.setHorizontalAlignment(JLabel.CENTER);
             return_panel.add(taskDetail_content_label);
         }
         return_panel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -133,9 +152,9 @@ public class Home extends Window {
         return_panel.setLayout(new GridLayout(6, 1));
 
         return_panel.add(create_detail_top_component(task.title));
-        return_panel.add(create_taskDetail_component_labelRow("Body: ", task.body, true));
-        return_panel.add(create_taskDetail_component_labelRow("Due: ", DateFormatter.format(task.due_date), false));
-        return_panel.add(create_taskDetail_component_labelRow("Priority: ", Integer.toString(task.priority), false));
+        return_panel.add(create_taskDetail_component_labelRow("Body: ", task.body));
+        return_panel.add(create_taskDetail_component_labelRow("Due: ", DateFormatter.format(task.due_date)));
+        return_panel.add(create_taskDetail_component_labelRow("Priority: ", Integer.toString(task.priority)));
         String users_name = "";
         for (int i = 0; i < task.user.length; i++) {
             users_name += task.user[i].nickname;
@@ -143,8 +162,8 @@ public class Home extends Window {
                 users_name += ", ";
             }
         }
-        return_panel.add(create_taskDetail_component_labelRow("Users: ", users_name, false));
-        return_panel.add(create_taskDetail_component_labelRow("Id: ", Long.toString(task.id), false));
+        return_panel.add(create_taskDetail_component_labelRow("Users: ", users_name));
+        return_panel.add(create_taskDetail_component_labelRow("Id: ", Long.toString(task.id)));
 
         JPanel taskDetail_body_panel = new JPanel();
         taskDetail_body_panel.setBorder(blackBorder);
@@ -269,7 +288,7 @@ public class Home extends Window {
         return right_frame.getContentPane();
     }
 
-    public Component createComponents() {
+    public Component create_main_component() {
         int main_height = frame.getHeight();
         int main_width = frame.getWidth();
         JFrame new_frame = new JFrame();
