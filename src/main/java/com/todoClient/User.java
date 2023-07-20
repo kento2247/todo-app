@@ -32,13 +32,14 @@ public class User extends History {
         String endpoint = "/users/login";
         String json_str = Json.stringify(this);
         OpenAPI_client c = new OpenAPI_client();
+
         String response = c.post(endpoint, json_str);
         if (response.equals("")) {
             System.out.println("login failed");
             return 0;
         } else {
             System.out.println("login success");
-            System.out.println("Access token: " + response);
+            // System.out.println("Access token: " + response);
             this.access_token = response;
             return 1;
         }
@@ -46,5 +47,9 @@ public class User extends History {
 
     public String getAccessToken() {
         return this.access_token;
+    }
+
+    public void setAccessToken(String access_token) {
+        this.access_token = access_token;
     }
 }
