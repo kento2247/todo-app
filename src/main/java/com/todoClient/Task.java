@@ -13,7 +13,6 @@ public class Task extends History {
     boolean is_archived_on_completion;
     User[] shared_users;
 
-
     Task(long id, User user, String title, String body, int priority, Date due_date) {
         this.id = id;
         this.user = user;
@@ -23,7 +22,7 @@ public class Task extends History {
         this.due_date = due_date;
         this.is_completed = false;
         this.is_archived_on_completion = false;
-        this.shared_users = new User[]{};
+        this.shared_users = new User[] {};
     }
 
     public static Task[] get_tasks(String access_token) {
