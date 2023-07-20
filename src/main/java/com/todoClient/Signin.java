@@ -2,6 +2,7 @@ package com.todoClient;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -129,19 +130,23 @@ public class Signin extends Window {
         scroll_frame.add(scrollPane);
 
         JPanel pane_submit = new JPanel();
-        pane_submit.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));
+        pane_submit.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
         pane_submit.setLayout(new GridLayout(2, 1));
         JLabel error_message = new JLabel("");
         error_message.setHorizontalAlignment(JLabel.CENTER);
         error_message.setForeground(java.awt.Color.red);
         pane_submit.add(error_message);
         JButton submit = new JButton("SIGN IN");
+        submit.setPreferredSize(new Dimension(100, 50));
+        submit.setFont(new Font("Dialog", Font.PLAIN, 20));
         ButtonAction submit_listener = new ButtonAction(error_message, emailField, passwordField, "submit");
         submit.addActionListener(submit_listener);
         pane_submit.add(submit);
+        pane_submit.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JPanel pane0 = new JPanel();
-        JLabel label = new JLabel("SIGN IN");
+        JLabel label = new JLabel("SIGN IN PAGE");
+        label.setFont(new Font("Dialog", Font.PLAIN, 30));
         label.setHorizontalAlignment(JLabel.CENTER);
         pane0.setBorder(BorderFactory.createEmptyBorder(10, 30, 10, 30));
         pane0.setLayout(new GridLayout(1, 1));
