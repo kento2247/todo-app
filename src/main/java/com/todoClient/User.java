@@ -14,9 +14,9 @@ public class User extends History {
 
     public int signup() {
         System.out.println("signup");
-        System.out.println("email: " + this.email);
-        System.out.println("nickname: " + this.nickname);
-        System.out.println("password: " + this.password);
+        // System.out.println("email: " + this.email);
+        // System.out.println("nickname: " + this.nickname);
+        // System.out.println("password: " + this.password);
         String endpoint = "/users/register";
         String json_str = Json.stringify(this);
         OpenAPI_client c = new OpenAPI_client();
@@ -27,8 +27,8 @@ public class User extends History {
 
     public int signin() {
         System.out.println("signin");
-        System.out.println("email: " + this.email);
-        System.out.println("password: " + this.password);
+        // System.out.println("email: " + this.email);
+        // System.out.println("password: " + this.password);
         String endpoint = "/users/login";
         String json_str = Json.stringify(this);
         OpenAPI_client c = new OpenAPI_client();

@@ -3,6 +3,7 @@ package com.todoClient;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -61,6 +62,7 @@ public class Login extends Window {
         JLabel label = new JLabel("USER LOGIN");
         label.setHorizontalAlignment(JLabel.CENTER);
         label.setPreferredSize(new Dimension(300, 100));
+        label.setFont(new java.awt.Font("Dialog", Font.BOLD, 30));
         pane0.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));
         pane0.setLayout(new GridLayout(1, 1));
         pane0.add(label);
@@ -70,6 +72,10 @@ public class Login extends Window {
         pane1.setLayout(new GridLayout(1, 2));
         JButton signin = new JButton("SIGN IN");
         JButton signup = new JButton("SIGN UP");
+        signin.setPreferredSize(new Dimension(100, 50));
+        signup.setPreferredSize(new Dimension(100, 50));
+        signin.setFont(new java.awt.Font("Dialog", Font.BOLD, 20));
+        signup.setFont(new java.awt.Font("Dialog", Font.BOLD, 20));
         ButtonAction signin_listener = new ButtonAction("signin");
         ButtonAction signup_listener = new ButtonAction("signup");
         signin.addActionListener(signin_listener);

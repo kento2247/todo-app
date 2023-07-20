@@ -2,6 +2,7 @@ package com.todoClient;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -163,13 +164,16 @@ public class Signup extends Window {
         pane_submit.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));
         pane_submit.setLayout(new GridLayout(1, 1));
         JButton submit = new JButton("SIGN UP");
+        submit.setPreferredSize(new Dimension(100, 50));
+        submit.setFont(new Font("Dialog", Font.PLAIN, 20));
         ButtonAction submit_listener = new ButtonAction(usernameField, emailField, passwordField, confirmPasswordField,
                 "submit");
         submit.addActionListener(submit_listener);
         pane_submit.add(submit);
 
         JPanel pane0 = new JPanel();
-        JLabel label = new JLabel("SIGN UP");
+        JLabel label = new JLabel("SIGN UP PAGE");
+        label.setFont(new Font("Dialog", Font.PLAIN, 30));
         label.setHorizontalAlignment(JLabel.CENTER);
         pane0.setBorder(BorderFactory.createEmptyBorder(10, 30, 10, 30));
         pane0.setLayout(new GridLayout(1, 1));
