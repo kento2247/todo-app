@@ -18,6 +18,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import javax.swing.border.Border;
 
 public class Home extends Window {
@@ -60,11 +61,13 @@ public class Home extends Window {
     }
 
     private Component create_detail_top_component(String title) {
-        JPanel return_panel = new JPanel(new GridLayout(1, 2));
-        // int taskDetail_panel_height = frame.getHeight();
-        // int taskDetail_panel_width = frame.getWidth() / 3 * 2 - scrollBar_width;
+        JFrame return_frame = new JFrame();
+        int taskDetail_panel_height = frame.getHeight();
+        int taskDetail_panel_width = frame.getWidth() / 3 * 2 - scrollBar_width;
+        int width_ratio = 10;
 
-        JPanel action_panel = new JPanel();
+        JPanel action_panel = new JPanel(new BorderLayout());
+        action_panel.setPreferredSize(new Dimension(taskDetail_panel_width / width_ratio, 50));
         action_panel.setLayout(new GridLayout(2, 1));
         action_panel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
         JCheckBox complete_checkbox = new JCheckBox("");
@@ -83,27 +86,38 @@ public class Home extends Window {
         edit_button.setSize(20, 20);
         action_panel.add(complete_checkbox);
         action_panel.add(edit_button);
-        return_panel.add(action_panel);
+        action_panel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        JPanel taskDetail_title_panel = new JPanel(new BorderLayout());
+        taskDetail_title_panel.setPreferredSize(new Dimension(taskDetail_panel_width / width_ratio * 9, 50));
         JLabel taskDetail_title_label = new JLabel(title);
         taskDetail_title_label.setHorizontalAlignment(JLabel.CENTER);
         taskDetail_title_label.setFont(new java.awt.Font("Dialog", Font.BOLD, 30));
-        return_panel.add(taskDetail_title_label);
+        taskDetail_title_panel.add(taskDetail_title_label);
 
-        return return_panel;
+        return_frame.add(action_panel, BorderLayout.WEST);
+        return_frame.add(taskDetail_title_label, BorderLayout.CENTER);
+
+        return return_frame.getContentPane();
     }
 
-    private Component create_taskDetail_component_labelRow(String title, String content) {
+    private Component create_taskDetail_component_labelRow(String title, String content, boolean editable) {
         // int taskDetail_panel_width = frame.getWidth() / 3 * 2 - scrollBar_width;
         // int taskDetail_panel_height = frame.getHeight();
         JPanel return_panel = new JPanel();
         return_panel.setLayout(new GridLayout(1, 2));
         JLabel taskDetail_title_label = new JLabel(title);
         taskDetail_title_label.setHorizontalAlignment(JLabel.CENTER);
-        JLabel taskDetail_content_label = new JLabel(content);
-        taskDetail_content_label.setHorizontalAlignment(JLabel.CENTER);
         return_panel.add(taskDetail_title_label);
-        return_panel.add(taskDetail_content_label);
+        if (editable) {
+            JLabel taskDetail_content_label = new JLabel(content);
+            taskDetail_content_label.setHorizontalAlignment(JLabel.CENTER);
+            return_panel.add(taskDetail_content_label);
+        } else {
+            JTextField taskDetail_content_label = new JTextField(content);
+            taskDetail_content_label.setHorizontalAlignment(JTextField.CENTER);
+            return_panel.add(taskDetail_content_label);
+        }
         return_panel.setAlignmentX(Component.CENTER_ALIGNMENT);
         return_panel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
         return return_panel;
@@ -119,9 +133,9 @@ public class Home extends Window {
         return_panel.setLayout(new GridLayout(6, 1));
 
         return_panel.add(create_detail_top_component(task.title));
-        return_panel.add(create_taskDetail_component_labelRow("Body: ", task.body));
-        return_panel.add(create_taskDetail_component_labelRow("Due: ", DateFormatter.format(task.due_date)));
-        return_panel.add(create_taskDetail_component_labelRow("Priority: ", Integer.toString(task.priority)));
+        return_panel.add(create_taskDetail_component_labelRow("Body: ", task.body, true));
+        return_panel.add(create_taskDetail_component_labelRow("Due: ", DateFormatter.format(task.due_date), false));
+        return_panel.add(create_taskDetail_component_labelRow("Priority: ", Integer.toString(task.priority), false));
         String users_name = "";
         for (int i = 0; i < task.user.length; i++) {
             users_name += task.user[i].nickname;
@@ -129,8 +143,8 @@ public class Home extends Window {
                 users_name += ", ";
             }
         }
-        return_panel.add(create_taskDetail_component_labelRow("Users: ", users_name));
-        return_panel.add(create_taskDetail_component_labelRow("Id: ", Long.toString(task.id)));
+        return_panel.add(create_taskDetail_component_labelRow("Users: ", users_name, false));
+        return_panel.add(create_taskDetail_component_labelRow("Id: ", Long.toString(task.id), false));
 
         JPanel taskDetail_body_panel = new JPanel();
         taskDetail_body_panel.setBorder(blackBorder);
