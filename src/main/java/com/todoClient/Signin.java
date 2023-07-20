@@ -88,6 +88,12 @@ public class Signin extends Window {
                     System.out.println("signin failed");
                     error_message.setText("Signin failed");
                 } else if (result == 1) {
+                    OpenAPI_client c = new OpenAPI_client();
+                    String access_token = user.getAccessToken();
+                    c.set_access_token(access_token);
+                    String user_data = c.get("/users/self");
+                    user = Json.parse(User.class, user_data);
+                    user.setAccessToken(access_token);
                     moveHome(user);
                 } else {
                     System.out.println("undefined user auth");
