@@ -9,16 +9,16 @@ public class TaskDTO {
     Date due_date;
     boolean is_completed;
     boolean is_archived_on_completion;
-    User[] shared_users;
+    long[] shared_users;
 
-    TaskDTO(String title, String body, int priority, Date due_date) {
+    TaskDTO(String title, String body, int priority, Date due_date,  long[] shared_users) {
         this.title = title;
         this.body = body;
         this.priority = priority;
         this.due_date = due_date;
         this.is_completed = false;
         this.is_archived_on_completion = false;
-        this.shared_users = new User[]{};
+        this.shared_users = shared_users;
     }
 
     public static Task create_task (String access_token, Task taskDTO) {
