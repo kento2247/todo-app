@@ -30,4 +30,14 @@ public class TaskDTO {
         Task task = Json.parse(Task.class, response);
         return task;
     }
+
+    public static Task put_task (String access_token, Task taskDTO, long id) {
+        String endpoint = "/tasks/" + id;
+        OpenAPI_client c = new OpenAPI_client();
+        c.set_access_token(access_token);
+        String response = c.put(endpoint, Json.stringify(taskDTO));
+        System.out.println(response);
+        Task task = Json.parse(Task.class, response);
+        return task;
+    }
 }
