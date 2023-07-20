@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -66,6 +67,11 @@ public class Home extends Window {
                 System.out.println("edit");
                 editable = true;
                 reload_home_page();
+            } else if (this.label_txt == "save") {
+                editable = false;
+                Component rightside_components = frame.getContentPane().getComponent(1);
+                System.out.println("rightside_components=" + rightside_components);
+                reload_home_page();
             } else {
                 System.out.println("undefined" + " label=" + this.label_txt);
             }
@@ -76,35 +82,47 @@ public class Home extends Window {
         JFrame return_frame = new JFrame();
         int taskDetail_panel_height = frame.getHeight();
         int taskDetail_panel_width = frame.getWidth() / 3 * 2 - scrollBar_width;
-        int width_ratio = 10;
+        int width_ratio = 5;
 
-        JPanel action_panel = new JPanel(new BorderLayout());
+        JPanel action_panel = new JPanel(new GridLayout(2, 1));
         action_panel.setPreferredSize(new Dimension(taskDetail_panel_width / width_ratio, 50));
-        action_panel.setLayout(new GridLayout(2, 1));
         action_panel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+        JPanel checkbox_panel = new JPanel(new GridLayout(1, 3));
+        checkbox_panel.setPreferredSize(new Dimension(taskDetail_panel_width / width_ratio, 50));
         JCheckBox complete_checkbox = new JCheckBox("");
         complete_checkbox.setSelected(true); // チェックボックスの初期状態を設定。trueでチェックあり、falseでチェックなし
         complete_checkbox.addActionListener(e -> {
             boolean selected = complete_checkbox.isSelected();
             System.out.println("チェックボックスが選択されたかどうか: " + selected);
         });
+        checkbox_panel.add(Box.createVerticalGlue());
+        checkbox_panel.add(complete_checkbox);
+        checkbox_panel.add(Box.createVerticalGlue());
+        action_panel.add(checkbox_panel);
 
-        ImageIcon edit_icon = new ImageIcon("src/main/java/com/todoClient/img/icon_edit.png");
-        Image edit_image = edit_icon.getImage();
-        Image scaled_edit_image = edit_image.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
-        edit_icon = new ImageIcon(scaled_edit_image);
-        JButton edit_button = new JButton(edit_icon);
-        edit_button.addActionListener(new ButtonAction("edit"));
-        edit_button.setSize(20, 20);
-        action_panel.add(complete_checkbox);
-        action_panel.add(edit_button);
+        if (editable) {
+            JButton save_button = new JButton("save");
+            save_button.addActionListener(new ButtonAction("save"));
+            save_button.setSize(20, 20);
+            action_panel.add(save_button);
+        } else {
+            ImageIcon edit_icon = new ImageIcon("src/main/java/com/todoClient/img/icon_edit.png");
+            Image edit_image = edit_icon.getImage();
+            Image scaled_edit_image = edit_image.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+            edit_icon = new ImageIcon(scaled_edit_image);
+            JButton edit_button = new JButton(edit_icon);
+            edit_button.addActionListener(new ButtonAction("edit"));
+            edit_button.setSize(20, 20);
+            action_panel.add(edit_button);
+        }
         action_panel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JPanel taskDetail_title_panel = new JPanel(new BorderLayout());
-        taskDetail_title_panel.setPreferredSize(new Dimension(taskDetail_panel_width / width_ratio * 9, 50));
+        taskDetail_title_panel
+                .setPreferredSize(new Dimension(taskDetail_panel_width / width_ratio * (width_ratio - 1), 50));
         if (editable) {
-            JLabel taskDetail_title_label = new JLabel(title);
-            taskDetail_title_label.setHorizontalAlignment(JLabel.CENTER);
+            JTextField taskDetail_title_label = new JTextField(title);
+            taskDetail_title_label.setHorizontalAlignment(JTextField.CENTER);
             taskDetail_title_label.setFont(new java.awt.Font("Dialog", Font.BOLD, 30));
             taskDetail_title_panel.add(taskDetail_title_label);
         } else {
