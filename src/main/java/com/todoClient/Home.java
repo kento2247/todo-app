@@ -4,12 +4,16 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -55,31 +59,39 @@ public class Home extends Window {
         }
     }
 
-    // private Component create_detail_top_component() {
-    // JPanel return_panel = new JPanel(new GridLayout(1, 2));
-    // int taskDetail_panel_height = frame.getHeight();
-    // int taskDetail_panel_width = frame.getWidth() / 3 * 2 - scrollBar_width;
+    private Component create_detail_top_component(String title) {
+        JPanel return_panel = new JPanel(new GridLayout(1, 2));
+        // int taskDetail_panel_height = frame.getHeight();
+        // int taskDetail_panel_width = frame.getWidth() / 3 * 2 - scrollBar_width;
 
-    // JPanel action_panel = new JPanel();
-    // action_panel.setLayout(new GridLayout(2, 1));
-    // action_panel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
-    // JCheckBox complete_checkbox = new JCheckBox("complete");
-    // complete_checkbox.setSelected(true); //
-    // チェックボックスの初期状態を設定。trueでチェックあり、falseでチェックなし
-    // complete_checkbox.addActionListener(e -> {
-    // boolean selected = complete_checkbox.isSelected();
-    // System.out.println("チェックボックスが選択されたかどうか: " + selected);
-    // });
-    // JButton edit_button = new JButton("edit");
-    // edit_button.addActionListener(new ButtonAction("edit"));
-    // action_panel.add(complete_checkbox);
-    // action_panel.add(edit_button);
+        JPanel action_panel = new JPanel();
+        action_panel.setLayout(new GridLayout(2, 1));
+        action_panel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+        JCheckBox complete_checkbox = new JCheckBox("");
+        complete_checkbox.setSelected(true); // チェックボックスの初期状態を設定。trueでチェックあり、falseでチェックなし
+        complete_checkbox.addActionListener(e -> {
+            boolean selected = complete_checkbox.isSelected();
+            System.out.println("チェックボックスが選択されたかどうか: " + selected);
+        });
 
-    // JLabel taskDetail_title_label = new JLabel("title");
-    // taskDetail_title_label.setHorizontalAlignment(JLabel.CENTER);
-    // taskDetail_title_label.setFont(new java.awt.Font("Dialog", Font.BOLD, 30));
-    // return_panel.add(taskDetail_title_label);
-    // }
+        ImageIcon edit_icon = new ImageIcon("src/main/java/com/todoClient/img/icon_edit.png");
+        Image edit_image = edit_icon.getImage();
+        Image scaled_edit_image = edit_image.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+        edit_icon = new ImageIcon(scaled_edit_image);
+        JButton edit_button = new JButton(edit_icon);
+        edit_button.addActionListener(new ButtonAction("edit"));
+        edit_button.setSize(20, 20);
+        action_panel.add(complete_checkbox);
+        action_panel.add(edit_button);
+        return_panel.add(action_panel);
+
+        JLabel taskDetail_title_label = new JLabel(title);
+        taskDetail_title_label.setHorizontalAlignment(JLabel.CENTER);
+        taskDetail_title_label.setFont(new java.awt.Font("Dialog", Font.BOLD, 30));
+        return_panel.add(taskDetail_title_label);
+
+        return return_panel;
+    }
 
     private Component create_taskDetail_component_labelRow(String title, String content) {
         // int taskDetail_panel_width = frame.getWidth() / 3 * 2 - scrollBar_width;
@@ -106,6 +118,7 @@ public class Home extends Window {
                 .setPreferredSize(new Dimension(taskDetail_panel_width, taskDetail_panel_height));
         return_panel.setLayout(new GridLayout(6, 1));
 
+        return_panel.add(create_detail_top_component(task.title));
         return_panel.add(create_taskDetail_component_labelRow("Body: ", task.body));
         return_panel.add(create_taskDetail_component_labelRow("Due: ", DateFormatter.format(task.due_date)));
         return_panel.add(create_taskDetail_component_labelRow("Priority: ", Integer.toString(task.priority)));

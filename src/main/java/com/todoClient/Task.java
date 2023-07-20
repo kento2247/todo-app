@@ -30,4 +30,16 @@ public class Task extends History {
         Task[] tasks = Json.parse(Task[].class, response);
         return tasks;
     }
+
+    public static void create_task(String access_token, User user, String title, String body, int priority,
+            String due_date) {
+        String endpoint = "/tasks";
+        OpenAPI_client c = new OpenAPI_client();
+        c.set_access_token(access_token);
+        User[] users = new User[] { user };
+        Task task = new Task(0, users, title, body, priority, due_date);
+        String json_str = Json.stringify(task);
+        String response = c.post(endpoint, json_str);
+        System.out.println(response);
+    }
 }
