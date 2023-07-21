@@ -33,7 +33,9 @@ public class Home extends Window {
     JTextField taskDetail_body_label;
     JTextField taskDetail_priority_label;
     JTextField taskDetail_users_label;
-    JTextField taskDetail_id_label;
+    JTextField taskDetail_createdat_label;
+    JTextField taskDetail_updatedat_label;
+    JCheckBox taskDetail_archivedoncompletion_checkbox;
     Task[] tasks = new Task[] {};
     long target_task_id = -1;
 
@@ -93,18 +95,22 @@ public class Home extends Window {
                 String new_due = taskDetail_due_label.getText();
                 String new_priority = taskDetail_priority_label.getText();
                 String new_users_csv = taskDetail_users_label.getText();
-                String new_id = taskDetail_id_label.getText();
+                String new_created_at = taskDetail_createdat_label.getText();
+                String new_updated_at = taskDetail_updatedat_label.getText();
+                Boolean new_archived_on_completion = taskDetail_archivedoncompletion_checkbox.isSelected();
                 System.out.println("new_title is " + new_title);
                 int task_index = Task.find_target_task_indexNum(tasks, target_task_id);
                 tasks[task_index].title = new_title;
                 tasks[task_index].body = new_body;
+                tasks[task_index]._archived_on_completion = new_archived_on_completion;
                 try {
                     tasks[task_index].due_date = DateFormatter.format(new_due);
                     tasks[task_index].priority = Integer.parseInt(new_priority);
                     long[] new_user_ids = User.split_csv(new_users_csv);
                     tasks[task_index].shared_users = new_user_ids;
                     System.out.println("new_id is " + User.get_user_id_csv(new_user_ids));
-                    tasks[task_index].id = Long.parseLong(new_id);
+                    tasks[task_index].created_at = DateFormatter.format(new_created_at);
+                    tasks[task_index].updated_at = DateFormatter.format(new_updated_at);
                     if (tasks[task_index].due_date == null || tasks[task_index].shared_users == null) {
                         System.out.println("due_date or shared_users is null");
                         editable = true;
@@ -262,7 +268,7 @@ public class Home extends Window {
         JPanel return_panel = new JPanel();
         return_panel
                 .setPreferredSize(new Dimension(taskDetail_panel_width, taskDetail_panel_height));
-        return_panel.setLayout(new GridLayout(6, 1));
+        return_panel.setLayout(new GridLayout(9, 1));
 
         return_panel.add(create_taskDetail_component_top());
         return_panel.add(create_taskDetail_component_labelRow("Body: ", task.body));
@@ -270,6 +276,10 @@ public class Home extends Window {
         return_panel.add(create_taskDetail_component_labelRow("Priority: ", Integer.toString(task.priority)));
         String user_id_csv = User.get_user_id_csv(task.shared_users);
         return_panel.add(create_taskDetail_component_labelRow("Users: ", user_id_csv));
+        return_panel.add(create_taskDetail_component_labelRow("Created at: ", DateFormatter.format(task.created_at)));
+        return_panel.add(create_taskDetail_component_labelRow("Updated at: ", DateFormatter.format(task.updated_at)));
+        return_panel.add(create_taskDetail_component_labelRow("Archive on complete: ",
+                Boolean.toString(task._archived_on_completion)));
         return_panel.add(create_taskDetail_component_labelRow("Id: ", Long.toString(task.id)));
 
         JPanel taskDetail_body_panel = new JPanel();
@@ -283,7 +293,7 @@ public class Home extends Window {
         Task task = Task.find_target_task(tasks, target_task_id);
         String title = task.title;
         JFrame return_frame = new JFrame();
-        int taskDetail_panel_height = frame.getHeight();
+        // int taskDetail_panel_height = frame.getHeight();
         int taskDetail_panel_width = frame.getWidth() / 3 * 2 - scrollBar_width;
         int width_ratio = 5;
 
@@ -366,16 +376,31 @@ public class Home extends Window {
                 taskDetail_users_label = new JTextField(content);
                 taskDetail_users_label.setHorizontalAlignment(JTextField.CENTER);
                 return_panel.add(taskDetail_users_label);
-            } else if (title == "Id: ") {
-                taskDetail_id_label = new JTextField(content);
-                taskDetail_id_label.setHorizontalAlignment(JTextField.CENTER);
-                return_panel.add(taskDetail_id_label);
+            } else if (title == "Created at: ") {
+                taskDetail_createdat_label = new JTextField(content);
+                taskDetail_createdat_label.setHorizontalAlignment(JTextField.CENTER);
+                return_panel.add(taskDetail_createdat_label);
+            } else if (title == "Updated at: ") {
+                taskDetail_updatedat_label = new JTextField(content);
+                taskDetail_updatedat_label.setHorizontalAlignment(JTextField.CENTER);
+                return_panel.add(taskDetail_updatedat_label);
+            } else if (title == "Archive on complete: ") {
+                JPanel center_checkbox_panel = new JPanel();
+                center_checkbox_panel.setLayout(new GridLayout(1, 3));
+                taskDetail_archivedoncompletion_checkbox = new JCheckBox();
+                taskDetail_archivedoncompletion_checkbox.setSelected(Boolean.parseBoolean(content));
+                center_checkbox_panel.add(Box.createVerticalGlue());
+                center_checkbox_panel.add(taskDetail_archivedoncompletion_checkbox);
+                center_checkbox_panel.add(Box.createVerticalGlue());
+                return_panel.add(center_checkbox_panel);
             } else {
                 JLabel taskDetail_content_label = new JLabel(content);
                 taskDetail_content_label.setHorizontalAlignment(JLabel.CENTER);
                 return_panel.add(taskDetail_content_label);
             }
-        } else {
+        } else
+
+        {
             JLabel taskDetail_content_label = new JLabel(content);
             taskDetail_content_label.setHorizontalAlignment(JLabel.CENTER);
             return_panel.add(taskDetail_content_label);
