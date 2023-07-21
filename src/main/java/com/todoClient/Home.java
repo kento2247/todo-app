@@ -9,6 +9,8 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 
 import javax.swing.BorderFactory;
@@ -72,6 +74,7 @@ public class Home extends Window {
                 moveLogin();
             } else if (this.label_txt == "addTask") {
                 System.out.println("addTask");
+                System.out.println(new Date());
                 TaskDTO new_task = new TaskDTO("", "", 0, new Date(), false, true, new Date(),
                         new Date(),
                         new long[] {});
