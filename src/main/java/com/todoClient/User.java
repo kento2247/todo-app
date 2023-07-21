@@ -80,15 +80,24 @@ public class User extends History {
         return Json.parse(User[].class, response);
     }
 
-    public static long[] split_csv(String user_id_csv) {
+    public static long[] split_csv_remove_myself(String user_id_csv, long my_id) {
         if (user_id_csv.equals("")) {
             return new long[] {};
         }
         String[] user_id_array = user_id_csv.split(",");
         long[] users = new long[user_id_array.length];
+        int length = 0;
         for (int i = 0; i < user_id_array.length; i++) {
-            users[i] = Long.parseLong(user_id_array[i]);
+            long id = Long.parseLong(user_id_array[i]);
+            if (id != my_id) {
+                users[i] = id;
+                length++;
+            }
         }
-        return users;
+        long[] return_users = new long[length];
+        for (int i = 0; i < length; i++) {
+            return_users[i] = users[i];
+        }
+        return return_users;
     }
 }
