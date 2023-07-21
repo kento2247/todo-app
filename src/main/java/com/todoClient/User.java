@@ -5,11 +5,13 @@ public class User extends History {
     String nickname;
     String password;
     private String access_token;
+    private long id;
 
     User(String nickname, String email, String password) {
         this.nickname = nickname;
         this.email = email;
         this.password = password;
+        this.id = -1;
     }
 
     public int signup() {
@@ -51,5 +53,40 @@ public class User extends History {
 
     public void setAccessToken(String access_token) {
         this.access_token = access_token;
+    }
+
+    public long get_id() {
+        return this.id;
+    }
+
+    public static String get_user_id_csv(User[] users) {
+        String return_str = "";
+        for (int i = 0; i < users.length; i++) {
+            return_str += Long.toString(users[i].get_id());
+            if (i != users.length - 1) {
+                return_str += ",";
+            }
+        }
+        return return_str;
+    }
+
+    public static User[] get_users() {
+        String endpoint = "/users";
+        OpenAPI_client c = new OpenAPI_client();
+        String response = c.get(endpoint);
+        return Json.parse(User[].class, response);
+    }
+
+    public static User[] get_users(String user_id_csv) {
+        String[] user_id_array = user_id_csv.split(",");
+        User[] users = new User[user_id_array.length];
+        for (int i = 0; i < user_id_array.length; i++) {
+            String endpoint = "/users/" + user_id_array[i];
+            OpenAPI_client c = new OpenAPI_client();
+            String response = c.get(endpoint);
+            User user = Json.parse(User.class, response);
+            users[i] = user;
+        }
+        return users;
     }
 }

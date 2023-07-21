@@ -18,8 +18,13 @@ public class DateFormatter {
     }
 
     public static String format(Date originalDate) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
-        String targetDateStr = sdf.format(originalDate);
-        return targetDateStr;
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+            String targetDateStr = sdf.format(originalDate);
+            return targetDateStr;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

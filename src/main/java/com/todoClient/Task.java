@@ -35,4 +35,47 @@ public class Task extends History {
         return tasks;
     }
 
+    public static Task[] get_tasks_demmo(User user) {
+        // 仮想タスクデータ
+        int repeat = 20;
+        Task[] tasks = new Task[repeat];
+        for (int i = 0; i < repeat; i++) {
+            Task t1 = new Task(i, user, "title", "body", 1, DateFormatter.format("2021/01/01 10:10"));
+            tasks[i] = t1;
+        }
+        return tasks;
+    }
+
+    public static Task find_target_task(Task[] tasks, long id) {
+        if (tasks.length == 0) {
+            System.out.println("tasks is empty");
+            return null;
+        }
+        if (id == -1) {
+            return tasks[0];
+        }
+        for (Task task : tasks) {
+            if (task.id == id) {
+                return task;
+            }
+        }
+        return null;
+    }
+
+    public static int find_target_task_indexNum(Task[] tasks, long id) {
+        if (tasks.length == 0) {
+            System.out.println("tasks is empty");
+            return -1;
+        }
+        if (id == -1) {
+            return 0;
+        }
+        for (int i = 0; i < tasks.length; i++) {
+            if (tasks[i].id == id) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
 }
