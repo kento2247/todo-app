@@ -39,8 +39,9 @@ public class Signin extends Window {
         frame.getContentPane().removeAll();
         Home home = new Home(frame, user);
         //
-        Task[] tasks = Task.get_tasks_demmo(user);
+        //Task[] tasks = Task.get_tasks_demmo(user);
         //
+        Task[] tasks = Task.get_tasks(user.getAccessToken());
         Component content = home.create_main_component(tasks, -1);
         frame.getContentPane().add(content, BorderLayout.CENTER);
         frame.getContentPane().revalidate();

@@ -89,9 +89,9 @@ public class Home extends Window {
                 try {
                     tasks[task_index].due_date = DateFormatter.format(new_due);
                     tasks[task_index].priority = Integer.parseInt(new_priority);
-                    User[] new_users = User.get_users(new_users_csv);
-                    tasks[task_index].shared_users = new_users;
-                    System.out.println("new_id is " + User.get_user_id_csv(new_users));
+                    Long[] new_user_ids = User.split_csv(new_users_csv);
+                    tasks[task_index].shared_users = new_user_ids;
+                    System.out.println("new_id is " + User.get_user_id_csv(new_user_ids));
                     tasks[task_index].id = Long.parseLong(new_id);
                     if (tasks[task_index].due_date == null || tasks[task_index].shared_users == null) {
                         System.out.println("due_date or shared_users is null");
@@ -100,6 +100,11 @@ public class Home extends Window {
                         editable = false;
                         reload_home_page();
                     }
+
+                    System.out.println(tasks[task_index].due_date);
+                    System.out.println(tasks[task_index].created_at);
+                    Task response = Task.put_task(user.getAccessToken(), tasks[task_index], tasks[task_index].id);
+                    System.out.println("response=" + response);
                 } catch (Exception e2) {
                     editable = true;
                     System.out.println("parse error: " + e2);

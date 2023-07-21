@@ -1,6 +1,7 @@
 package com.todoClient;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 public class Json {
     public static <T> T parse(Class<T> class_name, String json_str) {
@@ -9,7 +10,7 @@ public class Json {
     }
 
     public static String stringify(Object obj) {
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
         return gson.toJson(obj);
     }
 

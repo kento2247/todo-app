@@ -9,9 +9,9 @@ public class Task extends History {
     String body;
     int priority;
     Date due_date;
-    boolean is_completed;
-    boolean is_archived_on_completion;
-    User[] shared_users;
+    boolean _completed;
+    boolean _archived_on_completion;
+    Long[] shared_users;
 
     Task(long id, User user, String title, String body, int priority, Date due_date) {
         this.id = id;
@@ -20,9 +20,9 @@ public class Task extends History {
         this.body = body;
         this.priority = priority;
         this.due_date = due_date;
-        this.is_completed = false;
-        this.is_archived_on_completion = false;
-        this.shared_users = new User[] {};
+        this._completed = false;
+        this._archived_on_completion = false;
+        this.shared_users = new Long[] {};
     }
 
     public static Task[] get_tasks(String access_token) {
@@ -32,7 +32,21 @@ public class Task extends History {
         String response = c.get(endpoint);
         System.out.println(response);
         Task[] tasks = Json.parse(Task[].class, response);
+        System.out.println(tasks[0]);
         return tasks;
+    }
+
+    public static Task put_task (String access_token, Task taskDTO, long id) {
+        System.out.println(taskDTO.updated_at);
+        taskDTO.edit();
+        System.out.println(taskDTO.updated_at);
+        System.out.println("put_task");
+        String endpoint = "/tasks/" + id;
+        OpenAPI_client c = new OpenAPI_client();
+        c.set_access_token(access_token);
+        String response = c.put(endpoint, Json.stringify(taskDTO));
+        System.out.println(response);
+        return Json.parse(Task.class, response);
     }
 
     public static Task[] get_tasks_demmo(User user) {

@@ -59,10 +59,10 @@ public class User extends History {
         return this.id;
     }
 
-    public static String get_user_id_csv(User[] users) {
+    public static String get_user_id_csv(Long[] users) {
         String return_str = "";
         for (int i = 0; i < users.length; i++) {
-            return_str += Long.toString(users[i].get_id());
+            return_str += Long.toString(users[i]);
             if (i != users.length - 1) {
                 return_str += ",";
             }
@@ -77,15 +77,14 @@ public class User extends History {
         return Json.parse(User[].class, response);
     }
 
-    public static User[] get_users(String user_id_csv) {
+    public static Long[] split_csv (String user_id_csv) {
+        if(user_id_csv.equals("")) {
+            return new Long[] {};
+        }
         String[] user_id_array = user_id_csv.split(",");
-        User[] users = new User[user_id_array.length];
+        Long[] users = new Long[user_id_array.length];
         for (int i = 0; i < user_id_array.length; i++) {
-            String endpoint = "/users/" + user_id_array[i];
-            OpenAPI_client c = new OpenAPI_client();
-            String response = c.get(endpoint);
-            User user = Json.parse(User.class, response);
-            users[i] = user;
+            users[i] = Long.parseLong(user_id_array[i]);
         }
         return users;
     }
