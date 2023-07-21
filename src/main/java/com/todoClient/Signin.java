@@ -10,6 +10,7 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -39,9 +40,15 @@ public class Signin extends Window {
         frame.getContentPane().removeAll();
         Home home = new Home(frame, user);
         //
-        //Task[] tasks = Task.get_tasks_demmo(user);
+        // Task[] tasks = Task.get_tasks_demmo(user);
         //
         Task[] tasks = Task.get_tasks(user.getAccessToken());
+        if (tasks.length == 0) {
+            TaskDTO new_task = new TaskDTO("example", "this is an example", 0, new Date(), false, true, new Date(),
+                    new Date(),
+                    new long[] {});
+            tasks = new Task[] { TaskDTO.create_task(user.getAccessToken(), new_task) };
+        }
         Component content = home.create_main_component(tasks, -1);
         frame.getContentPane().add(content, BorderLayout.CENTER);
         frame.getContentPane().revalidate();

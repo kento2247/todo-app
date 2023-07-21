@@ -89,7 +89,7 @@ public class Home extends Window {
                 try {
                     tasks[task_index].due_date = DateFormatter.format(new_due);
                     tasks[task_index].priority = Integer.parseInt(new_priority);
-                    Long[] new_user_ids = User.split_csv(new_users_csv);
+                    long[] new_user_ids = User.split_csv(new_users_csv);
                     tasks[task_index].shared_users = new_user_ids;
                     System.out.println("new_id is " + User.get_user_id_csv(new_user_ids));
                     tasks[task_index].id = Long.parseLong(new_id);

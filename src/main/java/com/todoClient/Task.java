@@ -11,7 +11,7 @@ public class Task extends History {
     Date due_date;
     boolean _completed;
     boolean _archived_on_completion;
-    Long[] shared_users;
+    long[] shared_users;
 
     Task(long id, User user, String title, String body, int priority, Date due_date) {
         this.id = id;
@@ -22,7 +22,7 @@ public class Task extends History {
         this.due_date = due_date;
         this._completed = false;
         this._archived_on_completion = false;
-        this.shared_users = new Long[] {};
+        this.shared_users = new long[] {};
     }
 
     public static Task[] get_tasks(String access_token) {
@@ -32,11 +32,11 @@ public class Task extends History {
         String response = c.get(endpoint);
         System.out.println(response);
         Task[] tasks = Json.parse(Task[].class, response);
-        System.out.println(tasks[0]);
+        // System.out.println(tasks[0]);
         return tasks;
     }
 
-    public static Task put_task (String access_token, Task taskDTO, long id) {
+    public static Task put_task(String access_token, Task taskDTO, long id) {
         System.out.println(taskDTO.updated_at);
         taskDTO.edit();
         System.out.println(taskDTO.updated_at);

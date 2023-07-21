@@ -13,7 +13,8 @@ public class TaskDTO {
     Date updated_at;
     long[] shared_users;
 
-    TaskDTO(String title, String body, int priority, Date due_date, boolean is_completed, boolean is_archived_on_completion,  Date created_at,  Date updated_at,  long[] shared_users) {
+    TaskDTO(String title, String body, int priority, Date due_date, boolean is_completed,
+            boolean is_archived_on_completion, Date created_at, Date updated_at, long[] shared_users) {
         this.title = title;
         this.body = body;
         this.priority = priority;
@@ -25,8 +26,8 @@ public class TaskDTO {
         this.shared_users = shared_users;
     }
 
-    public static Task create_task (String access_token, Task taskDTO) {
-        String endpoint = "/tasks";
+    public static Task create_task(String access_token, TaskDTO taskDTO) {
+        String endpoint = "/tasks/new";
         OpenAPI_client c = new OpenAPI_client();
         c.set_access_token(access_token);
         String response = c.post(endpoint, Json.stringify(taskDTO));

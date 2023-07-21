@@ -59,8 +59,11 @@ public class User extends History {
         return this.id;
     }
 
-    public static String get_user_id_csv(Long[] users) {
+    public static String get_user_id_csv(long[] users) {
         String return_str = "";
+        if (users.length == 0) {
+            return return_str;
+        }
         for (int i = 0; i < users.length; i++) {
             return_str += Long.toString(users[i]);
             if (i != users.length - 1) {
@@ -77,12 +80,12 @@ public class User extends History {
         return Json.parse(User[].class, response);
     }
 
-    public static Long[] split_csv (String user_id_csv) {
-        if(user_id_csv.equals("")) {
-            return new Long[] {};
+    public static long[] split_csv(String user_id_csv) {
+        if (user_id_csv.equals("")) {
+            return new long[] {};
         }
         String[] user_id_array = user_id_csv.split(",");
-        Long[] users = new Long[user_id_array.length];
+        long[] users = new long[user_id_array.length];
         for (int i = 0; i < user_id_array.length; i++) {
             users[i] = Long.parseLong(user_id_array[i]);
         }
