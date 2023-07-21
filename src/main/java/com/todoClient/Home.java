@@ -9,6 +9,7 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -69,8 +70,19 @@ public class Home extends Window {
                 moveLogin();
             } else if (this.label_txt == "addTask") {
                 System.out.println("addTask");
-                System.out.println("user.getAccessToken()=" + user.getAccessToken());
-                Task.get_tasks(user.getAccessToken());
+                TaskDTO new_task = new TaskDTO("", "", 0, new Date(), false, true, new Date(),
+                        new Date(),
+                        new long[] {});
+                int tasks_length = tasks.length;
+                Task[] new_tasks = new Task[tasks_length + 1];
+                for (int i = 0; i < tasks_length; i++) {
+                    new_tasks[i] = tasks[i];
+                }
+                new_tasks[tasks_length] = TaskDTO.create_task(user.getAccessToken(), new_task);
+                tasks = new_tasks;
+                editable = true;
+                target_task_id = new_tasks[tasks_length].id;
+                reload_home_page();
             } else if (this.label_txt == "edit") {
                 System.out.println("edit");
                 editable = true;
