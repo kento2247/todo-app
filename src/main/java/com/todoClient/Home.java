@@ -433,14 +433,6 @@ public class Home extends Window {
                 taskDetail_users_label = new JTextField(content);
                 taskDetail_users_label.setHorizontalAlignment(JTextField.CENTER);
                 return_panel.add(taskDetail_users_label);
-            } else if (title == "Created at: ") {
-                taskDetail_createdat_label = new JTextField(content);
-                taskDetail_createdat_label.setHorizontalAlignment(JTextField.CENTER);
-                return_panel.add(taskDetail_createdat_label);
-            } else if (title == "Updated at: ") {
-                taskDetail_updatedat_label = new JTextField(content);
-                taskDetail_updatedat_label.setHorizontalAlignment(JTextField.CENTER);
-                return_panel.add(taskDetail_updatedat_label);
             } else if (title == "Archive on complete: ") {
                 JPanel center_checkbox_panel = new JPanel();
                 center_checkbox_panel.setLayout(new GridLayout(1, 3));
