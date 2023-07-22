@@ -30,9 +30,14 @@ public class TaskDTO {
         String endpoint = "/tasks/new";
         OpenAPI_client c = new OpenAPI_client();
         c.set_access_token(access_token);
+        // System.out.println("\n\n\ncreate_task\n" + Json.stringify(taskDTO));
         String response = c.post(endpoint, Json.stringify(taskDTO));
-        System.out.println(response);
+        // System.out.println("\n\nresponse\n" + response);
         Task task = Json.parse(Task.class, response);
+        task.due_date = DateFormatter.format(DateFormatter.format(task.due_date, -9));
+        task.created_at = DateFormatter.format(DateFormatter.format(task.created_at, -9));
+        task.updated_at = DateFormatter.format(DateFormatter.format(task.updated_at, -9));
+        // System.out.println("\n\nparsed\n" + task.due_date);
         return task;
     }
 

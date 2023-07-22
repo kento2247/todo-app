@@ -32,6 +32,11 @@ public class Task extends History {
         String response = c.get(endpoint);
         System.out.println(response);
         Task[] tasks = Json.parse(Task[].class, response);
+        for (int i = 0; i < tasks.length; i++) {
+            tasks[i].due_date = DateFormatter.format(DateFormatter.format(tasks[i].due_date, -9));
+            tasks[i].created_at = DateFormatter.format(DateFormatter.format(tasks[i].created_at, -9));
+            tasks[i].updated_at = DateFormatter.format(DateFormatter.format(tasks[i].updated_at, -9));
+        }
         // System.out.println(tasks[0]);
         return tasks;
     }
@@ -46,7 +51,11 @@ public class Task extends History {
         c.set_access_token(access_token);
         String response = c.put(endpoint, Json.stringify(taskDTO));
         System.out.println(response);
-        return Json.parse(Task.class, response);
+        Task response_obj = Json.parse(Task.class, response);
+        response_obj.due_date = DateFormatter.format(DateFormatter.format(response_obj.due_date, -9));
+        response_obj.created_at = DateFormatter.format(DateFormatter.format(response_obj.created_at, -9));
+        response_obj.updated_at = DateFormatter.format(DateFormatter.format(response_obj.updated_at, -9));
+        return response_obj;
     }
 
     public static Task[] get_tasks_demmo(User user) {

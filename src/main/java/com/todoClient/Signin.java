@@ -104,6 +104,7 @@ public class Signin extends Window {
                     c.set_access_token(access_token);
                     String user_data = c.get("/users/self");
                     user = Json.parse(User.class, user_data);
+                    user.created_at = DateFormatter.format(DateFormatter.format(user.created_at, -9));
                     user.setAccessToken(access_token);
                     moveHome(user);
                 } else {

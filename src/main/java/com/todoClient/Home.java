@@ -147,7 +147,7 @@ public class Home extends Window {
             } else if (this.label_txt == "edit") {
                 System.out.println("edit");
                 editable = true;
-                reload_home_page();
+                reload_home_page(false, true);
             } else if (this.label_txt == "save") {
                 put_task();
                 editable = false;

@@ -77,7 +77,12 @@ public class User extends History {
         String endpoint = "/users";
         OpenAPI_client c = new OpenAPI_client();
         String response = c.get(endpoint);
-        return Json.parse(User[].class, response);
+        User[] parsed_users = Json.parse(User[].class, response);
+        for (int i = 0; i < parsed_users.length; i++) {
+            parsed_users[i].created_at = DateFormatter.format(DateFormatter.format(parsed_users[i].created_at, -9));
+            parsed_users[i].updated_at = DateFormatter.format(DateFormatter.format(parsed_users[i].updated_at, -9));
+        }
+        return parsed_users;
     }
 
     public static long[] split_csv_remove_myself(String user_id_csv, long my_id) {

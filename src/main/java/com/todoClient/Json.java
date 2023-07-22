@@ -6,7 +6,8 @@ import com.google.gson.GsonBuilder;
 public class Json {
     public static <T> T parse(Class<T> class_name, String json_str) {
         Gson gson = new Gson();
-        return gson.fromJson(json_str, class_name);
+        T parsed_class = gson.fromJson(json_str, class_name);
+        return parsed_class;
     }
 
     public static String stringify(Object obj) {
