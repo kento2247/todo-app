@@ -119,7 +119,7 @@ public class Signup extends Window {
 
         JPanel inputPanel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(2, 2, 10, 0); // 入力ボックスの周囲の余白を設定
+        gbc.insets = new Insets(2, 2, 10, 0);
         JLabel usernameLabel = new JLabel("Username:");
         JTextField usernameField = new JTextField(20);
         JLabel emailLabel = new JLabel("Email Address:");
@@ -128,8 +128,7 @@ public class Signup extends Window {
         JPasswordField passwordField = new JPasswordField(20);
         JLabel confirmPasswordLabel = new JLabel("Confirm Password:");
         JPasswordField confirmPasswordField = new JPasswordField(20);
-        // 入力ボックスの高さを調整
-        Font font = new Font("Arial", Font.PLAIN, 16); // フォントサイズを16に設定
+        Font font = new Font("Arial", Font.PLAIN, 16);
         usernameField.setFont(font);
         emailField.setFont(font);
         passwordField.setFont(font);

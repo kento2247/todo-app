@@ -121,13 +121,12 @@ public class Signin extends Window {
 
         JPanel inputPanel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(2, 2, 10, 0); // 入力ボックスの周囲の余白を設定
+        gbc.insets = new Insets(2, 2, 10, 0);
         JLabel emailLabel = new JLabel("Email Address:");
         JTextField emailField = new JTextField(20);
         JLabel passwordLabel = new JLabel("Password:");
         JPasswordField passwordField = new JPasswordField(20);
-        // 入力ボックスの高さを調整
-        Font font = new Font("Arial", Font.PLAIN, 16); // フォントサイズを16に設定
+        Font font = new Font("Arial", Font.PLAIN, 16);
         emailField.setFont(font);
         passwordField.setFont(font);
         gbc.gridx = 0;

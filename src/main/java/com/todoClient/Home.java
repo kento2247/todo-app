@@ -298,7 +298,7 @@ public class Home extends Window {
         right_frame.setPreferredSize(new Dimension(main_width / 3 * 2, main_height));
 
         Component taskDetail_panel = create_taskDetail_component();
-        JScrollPane taskDetail_scroll = new JScrollPane(taskDetail_panel); // スクロール可能にする
+        JScrollPane taskDetail_scroll = new JScrollPane(taskDetail_panel);
         taskDetail_scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         taskDetail_scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         taskDetail_scroll
@@ -351,7 +351,7 @@ public class Home extends Window {
         JPanel checkbox_panel = new JPanel(new GridLayout(1, 3));
         checkbox_panel.setPreferredSize(new Dimension(taskDetail_panel_width / width_ratio, 50));
         complete_checkbox = new JCheckBox("");
-        complete_checkbox.setSelected(task._completed); // チェックボックスの初期状態を設定。trueでチェックあり、falseでチェックなし
+        complete_checkbox.setSelected(task._completed); 
         complete_checkbox.addActionListener(e -> {
             boolean selected = complete_checkbox.isSelected();
             int task_index = Task.find_target_task_indexNum(tasks, target_task_id);
