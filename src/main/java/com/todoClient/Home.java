@@ -34,8 +34,6 @@ public class Home extends Window {
     JTextField taskDetail_body_label;
     JTextField taskDetail_priority_label;
     JTextField taskDetail_users_label;
-    JTextField taskDetail_createdat_label;
-    JTextField taskDetail_updatedat_label;
     JCheckBox taskDetail_archivedoncompletion_checkbox;
     Task[] tasks = new Task[] {};
     long target_task_id = -1;
@@ -75,13 +73,15 @@ public class Home extends Window {
     }
 
     public void put_task() {
+        if (editable == false) {
+            editable = true;
+            reload_home_page(tasks);
+        }
         String new_title = taskDetail_title_label.getText();
         String new_body = taskDetail_body_label.getText();
         String new_due = taskDetail_due_label.getText();
         String new_priority = taskDetail_priority_label.getText();
         String new_users_csv = taskDetail_users_label.getText();
-        String new_created_at = taskDetail_createdat_label.getText();
-        String new_updated_at = taskDetail_updatedat_label.getText();
         Boolean new_archived_on_completion = taskDetail_archivedoncompletion_checkbox.isSelected();
         System.out.println("new_title is " + new_title);
         int task_index = Task.find_target_task_indexNum(tasks, target_task_id);
@@ -94,8 +94,6 @@ public class Home extends Window {
             long[] new_user_ids = User.split_csv_remove_myself(new_users_csv, user.get_id());
             tasks[task_index].shared_users = new_user_ids;
             System.out.println("new_id is " + User.get_user_id_csv(new_user_ids));
-            tasks[task_index].created_at = DateFormatter.format(new_created_at);
-            tasks[task_index].updated_at = DateFormatter.format(new_updated_at);
             if (tasks[task_index].due_date == null || tasks[task_index].shared_users == null) {
                 System.out.println("due_date or shared_users is null");
                 editable = true;
@@ -123,9 +121,13 @@ public class Home extends Window {
 
         public void actionPerformed(ActionEvent e) {
             if (this.label_txt == "logout") {
+                put_task();
+                editable = false;
                 System.out.println("logout");
                 moveLogin();
             } else if (this.label_txt == "addTask") {
+                put_task();
+                editable = false;
                 System.out.println("addTask");
                 System.out.println(new Date());
                 TaskDTO new_task = new TaskDTO("", "", 0, new Date(), false, true, new Date(),
@@ -177,6 +179,8 @@ public class Home extends Window {
         }
 
         public void actionPerformed(ActionEvent e) {
+            put_task();
+            editable = false;
             System.out.println("task_button clicked" + " task_id=" + task.id);
             target_task_id = task.id;
             reload_home_page();
@@ -358,8 +362,6 @@ public class Home extends Window {
                     target_task_id = -1;
                 }
             }
-            editable = true;
-            reload_home_page(tasks);
             put_task();
             editable = false;
             reload_home_page();
