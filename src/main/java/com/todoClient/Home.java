@@ -129,7 +129,6 @@ public class Home extends Window {
                 put_task();
                 editable = false;
                 System.out.println("addTask");
-                System.out.println(new Date());
                 TaskDTO new_task = new TaskDTO("", "", 0, new Date(), false, true, new Date(),
                         new Date(),
                         new long[] {});
@@ -142,18 +141,11 @@ public class Home extends Window {
                 tasks = new_tasks;
                 editable = true;
                 target_task_id = new_tasks[tasks_length].id;
+                // System.out.println("\n\nnew_task=" + new_task.due_date);
+                // System.out.println("returned task=" + new_tasks[tasks_length].due_date);
                 reload_home_page(tasks);
             } else if (this.label_txt == "edit") {
                 System.out.println("edit");
-                complete_checkbox.setEnabled(false);
-                long[] sharing_list = Task.find_target_task(tasks, target_task_id).shared_users;
-                for (int i = 0; i < sharing_list.length; i++) {
-                    if (sharing_list[i] == user.get_id()) {
-                        editable = false;
-                        return;
-                    }
-                }
-
                 editable = true;
                 reload_home_page();
             } else if (this.label_txt == "save") {
@@ -351,7 +343,7 @@ public class Home extends Window {
         JPanel checkbox_panel = new JPanel(new GridLayout(1, 3));
         checkbox_panel.setPreferredSize(new Dimension(taskDetail_panel_width / width_ratio, 50));
         complete_checkbox = new JCheckBox("");
-        complete_checkbox.setSelected(task._completed); 
+        complete_checkbox.setSelected(task._completed);
         complete_checkbox.addActionListener(e -> {
             boolean selected = complete_checkbox.isSelected();
             int task_index = Task.find_target_task_indexNum(tasks, target_task_id);
@@ -368,7 +360,11 @@ public class Home extends Window {
             System.out.println("selected: " + selected);
         });
         checkbox_panel.add(Box.createVerticalGlue());
-        checkbox_panel.add(complete_checkbox);
+        if (editable) {
+            checkbox_panel.add(Box.createVerticalGlue());
+        } else {
+            checkbox_panel.add(complete_checkbox);
+        }
         checkbox_panel.add(Box.createVerticalGlue());
         action_panel.add(checkbox_panel);
 
@@ -404,7 +400,16 @@ public class Home extends Window {
             taskDetail_title_panel.add(taskDetail_title_label);
         }
 
-        return_frame.add(action_panel, BorderLayout.WEST);
+        boolean is_shared = false;
+        long[] sharing_list = Task.find_target_task(tasks, target_task_id).shared_users;
+        for (int i = 0; i < sharing_list.length; i++) {
+            if (sharing_list[i] == user.get_id()) {
+                is_shared = true;
+            }
+        }
+        if (!is_shared) {
+            return_frame.add(action_panel, BorderLayout.WEST);
+        }
         return_frame.add(taskDetail_title_panel, BorderLayout.CENTER);
 
         return return_frame.getContentPane();

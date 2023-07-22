@@ -30,9 +30,13 @@ public class Main {
     // OpenAPI_client c = new OpenAPI_client();
     // System.out.println(c.get("/hello"));
 
+    // String str_date = DateFormatter.format(new Date());
+    // System.out.println(str_date);
+    // System.out.println(DateFormatter.format(str_date));
+    // System.out.println(str_date.length());
+
     Window w = new Window();
     w.init();
-
     w.start_page();
 
     // User user = new User("hello", "email", "password");
